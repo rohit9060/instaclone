@@ -1,19 +1,27 @@
 "use client";
-import { socket } from "@/lib";
-import { useEffect } from "react";
+import { CardWrapper, SignIn } from "@/components/auth";
 
-export default function Home() {
-  useEffect(() => {
-    if (socket) {
-      socket.on("connect", () => {
-        console.log("Connected to server");
-      });
-    }
-  }, []);
+function Page() {
+  const footer = [
+    {
+      text: "Do not have an account? Sign up",
+      href: "/account/signup",
+    },
+    {
+      text: "Already have an account? Sign in",
+      href: "/account/signin",
+    },
+  ];
 
   return (
-    <section>
-      <h1 className="text-2xl font-semibold">Hello World!</h1>
-    </section>
+    <>
+      <section className="flex flex-col justify-center items-center h-screen max-w-4xl mx-auto px-5 text-center gap-5 ">
+        <CardWrapper cardFooter={footer}>
+          <SignIn />
+        </CardWrapper>
+      </section>
+    </>
   );
 }
+
+export default Page;

@@ -20,6 +20,7 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
+      select: false,
     },
     phone: {
       type: String,
@@ -123,6 +124,7 @@ const UserSchema = new Schema(
     otp: {
       type: String,
       default: null,
+      select: false,
     },
     isVerified: {
       type: Boolean,
@@ -136,6 +138,7 @@ const UserSchema = new Schema(
     token: {
       type: String,
       default: null,
+      select: false,
     },
   },
   { timestamps: true }

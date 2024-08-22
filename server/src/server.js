@@ -1,14 +1,14 @@
-import express from "express";
-import { createServer } from "http";
 import cors from "cors";
 import helmet from "helmet";
-import cookieParser from "cookie-parser";
+import express from "express";
 import { Server } from "socket.io";
+import { createServer } from "http";
+import cookieParser from "cookie-parser";
 
 // import files
-import { env, logger, connectDB } from "./config/index.js";
-import { GlobalErrorHandler } from "./utils/index.js";
 import { userRoutes } from "./routes/index.js";
+import { GlobalErrorHandler } from "./utils/index.js";
+import { env, logger, connectDB } from "./config/index.js";
 
 // create app
 const app = express();
@@ -25,21 +25,21 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected " + socket.id);
+  logger.info("a user connected " + socket.id);
 
   socket.on("disconnect", () => {
-    console.log("user disconnected " + socket.id);
+    logger.info("a user disconnected " + socket.id);
   });
 });
 
 // connect to database
-connectDB();
+await connectDB();
 
 // middleware
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true, limit: "2mb" }));
 app.use(logger.httpExpress);
-app.use((req, res, next) => {
+app.use((req, _, next) => {
   req.io = io;
   next();
 });
@@ -51,22 +51,23 @@ app.use(
     credentials: true,
   })
 );
-app.use(cookieParser());
+app.use(cookieParser(env.TOKEN_SECRET));
 
 // routes
 app.use("/api/v1/users", userRoutes);
 
-// global route
-app.get("/", (req, res) => {
+// health check
+app.get("/", (_, res) => {
   res
     .status(200)
     .json({ message: "server is running", success: true, statusCode: 200 });
 });
 
-app.all("*", (req, res, next) => {
+// not found route
+app.all("*", (_, res, __) => {
   res
     .status(404)
-    .json({ message: "Route Not found", success: false, statusCode: 404 });
+    .json({ message: "route not found", success: false, statusCode: 404 });
 });
 
 // error handler
@@ -74,5 +75,5 @@ app.use(GlobalErrorHandler);
 
 // listen server
 server.listen(env.PORT, "0.0.0.0", () => {
-  logger.info("Server is running on http://localhost:" + env.PORT);
+  logger.info("server is running on http://localhost:" + env.PORT);
 });

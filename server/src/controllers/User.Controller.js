@@ -24,7 +24,7 @@ class UserController {
     });
 
     if (exists) {
-      return next(new HttpError("Email or username already exists", 400));
+      return next(new HttpError("email or username already exists", 400));
     }
 
     // hash password
@@ -71,6 +71,7 @@ class UserController {
       statusCode: 201,
       success: true,
       data: user,
+      message: "account created successfully",
     });
   });
 
@@ -83,10 +84,12 @@ class UserController {
     }
 
     // find user
-    const user = await User.findOne({ username: data.username });
+    const user = await User.findOne({ username: data.username }).select(
+      "password"
+    );
 
     if (!user) {
-      return next(new HttpError("Account not found", 400));
+      return next(new HttpError("account not found", 404));
     }
 
     // compare password
@@ -100,7 +103,7 @@ class UserController {
     }
 
     // if (!user.isVerified) {
-    //   return next(new HttpError("Please verify your account", 400));
+    //   return next(new HttpError("please verify your account", 400));
     // }
 
     // generate token
@@ -143,6 +146,46 @@ class UserController {
         accessToken,
         refreshToken,
       },
+      message: "sign in successful",
+    });
+  });
+
+  // sign out
+  signOut = AsyncErrorHandler(async (_, res, __) => {
+    res.cookie("accessToken", "", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000,
+    });
+
+    res.cookie("refreshToken", "", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1000,
+    });
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "signed out successfully",
+    });
+  });
+
+  // get user
+  profile = AsyncErrorHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return next(new HttpError("profile not found", 404));
+    }
+
+    return res.status(200).json({
+      statusCode: 200,
+      success: true,
+      message: "profile fetched successfully",
+      data: user,
     });
   });
 }

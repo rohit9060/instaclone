@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 class Token {
   // create jwt token
   createJwtToken = (payload, secret, expireIn) => {
-    return jwt.sign(payload, secret, { expireIn });
+    return jwt.sign(payload, secret, { expiresIn: expireIn });
   };
 
   // verify jwt token

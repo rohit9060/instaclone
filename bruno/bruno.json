@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Insta-Clone",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 class Hash {
   // create bcrypt hash
   createBcryptHash = (password) => {
-    const salt = bcrypt.genSalt(12);
+    const salt = bcrypt.genSaltSync(12);
     return bcrypt.hashSync(password, salt);
   };
 

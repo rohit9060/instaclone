@@ -7,7 +7,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - ./data/db:/data/db
+      - instaclone-data:/mongo/db
     environment:
       MONGO_INITDB_DATABASE: instaclone
 
@@ -17,4 +17,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./data/redis:/data
+      - instaclone-data:/redis/data
+
+volumes:
+  instaclone-data:
