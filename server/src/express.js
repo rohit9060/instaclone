@@ -6,8 +6,7 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 
 import { userRoutes } from "./api/rest/routes/index.js";
-import { GlobalErrorHandler } from "./utils/index.js";
-import { logger } from "./config/index.js";
+import { GlobalErrorHandler, logger } from "./utils/index.js";
 
 function configureExpress(PORT, TOKEN_SECRET) {
   // create app

@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { logger } from "./config/index.js";
+import { logger } from "./utils/index.js";
 import { resolvers } from "./api/graphql/resolvers/index.js";
 import { typeDefs } from "./api/graphql/schema/index.js";
 

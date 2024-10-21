@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
-import { env } from "../config/index.js";
+import { env } from "./configs.js";
+import fs from "fs";
 
 cloudinary.config({
   cloud_name: env.CLOUDINARY_CLOUD_NAME,
@@ -7,24 +8,34 @@ cloudinary.config({
   api_secret: env.CLOUDINARY_API_SECRET,
 });
 
-export class CloudinaryService {
+class CloudinaryService {
   // upload single image
   uploadSingleImage = async (file, folder) => {
-    const result = await cloudinary.uploader.upload(file, {
+    const result = await cloudinary.uploader.upload(file.path, {
       folder,
     });
+
+    // delete temp file
+    // await fs.unlink(file.path);
+
     return result;
   };
 
   // upload multiple images
   uploadMultipleImages = async (files, folder) => {
     const promises = files.map((file) => {
-      cloudinary.uploader.upload(file, {
+      cloudinary.uploader.upload(file.path, {
         folder,
       });
     });
 
     const result = Promise.all(promises);
+
+    // delete temp files
+    files.forEach((file) => {
+      fs.unlink(file.path);
+    });
+
     return result;
   };
 
@@ -44,3 +55,5 @@ export class CloudinaryService {
     return result;
   };
 }
+
+export const cloudinaryService = new CloudinaryService();

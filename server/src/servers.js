@@ -1,8 +1,7 @@
 // import files
 import configureExpress from "./express.js";
 import configureGraphQL from "./graphql.js";
-import { connectDB } from "./config/index.js";
-import { env } from "./config/index.js";
+import { env, connectDB } from "./utils/index.js";
 
 // connect to database
 await connectDB();
