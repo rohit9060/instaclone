@@ -474,6 +474,7 @@ class UserService {
 
   // upload profile picture
   uploadProfilePicture = async (id, files) => {
+    // user
     const user = await User.findById(id);
 
     if (!user) {

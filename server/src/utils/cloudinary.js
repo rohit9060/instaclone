@@ -16,7 +16,7 @@ class CloudinaryService {
     });
 
     // delete temp file
-    // await fs.unlink(file.path);
+    fs.unlinkSync(file.path);
 
     return result;
   };
@@ -33,7 +33,7 @@ class CloudinaryService {
 
     // delete temp files
     files.forEach((file) => {
-      fs.unlink(file.path);
+      fs.unlinkSync(file.path);
     });
 
     return result;
