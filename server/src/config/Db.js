@@ -5,8 +5,13 @@ import cache from "express-redis-cache";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(env.DATABASE_URL);
-    logger.info("Connected to database");
+    const con = await mongoose.connect(env.DATABASE_URL);
+    logger.info(
+      "Connected to database " +
+        con.connection.host +
+        "->" +
+        con.connections[0].name
+    );
   } catch (err) {
     logger.error("Error connecting to database");
     console.log(err);

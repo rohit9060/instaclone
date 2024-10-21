@@ -1,0 +1,21 @@
+meta {
+  name: Verify
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/users/email/verify
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzlhZGMyYjY3YjExMDg1ZjlhMmJhYiIsImlhdCI6MTcyNDQ5ODg5NCwiZXhwIjoxNzI0NTg1Mjk0fQ.-0DUbt9Xg5bCOuDj0vcM2sp1z88P5TobZLB0QBIvka0
+}
+
+body:json {
+  {
+    "otp":"544483"
+  }
+}

@@ -12,11 +12,13 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      index: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      index: true,
     },
     password: {
       type: String,
@@ -98,12 +100,12 @@ const UserSchema = new Schema(
         ref: "Reel",
       },
     ],
-    AccountType: {
+    accountType: {
       type: String,
       enum: ["public", "private"],
       default: "public",
     },
-    ApprovedUser: [
+    approvedUser: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -134,6 +136,7 @@ const UserSchema = new Schema(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+      select: false,
     },
     token: {
       type: String,

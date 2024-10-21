@@ -3,6 +3,7 @@ dotenv.config();
 
 const _env = {
   PORT: process.env.PORT,
+  GRAPH_PORT: process.env.GRAPH_PORT,
   NODE_ENV: process.env.NODE_ENV,
 
   DATABASE_URL: process.env.DATABASE_URL,
