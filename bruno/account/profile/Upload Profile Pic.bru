@@ -1,15 +1,19 @@
 meta {
-  name: Get User By Username
+  name: Upload Profile Pic
   type: http
-  seq: 1
+  seq: 2
 }
 
-get {
-  url: {{baseUrl}}/users/rohit
-  body: none
+post {
+  url: {{baseUrl}}/users/profile/picture
+  body: multipartForm
   auth: bearer
 }
 
 auth:bearer {
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTVkYTQ1MThiMmI2NjFmNjZkMzk2MiIsImlhdCI6MTcyOTUxOTA2NCwiZXhwIjoxNzI5NjA1NDY0fQ.57krOY4lJbbIBkShnsUiL4RKCsNo3IBBWI9MF2iBcSk
+}
+
+body:multipart-form {
+  images: @file(/home/rohit2005/Pictures/mybropic.jpeg)
 }
