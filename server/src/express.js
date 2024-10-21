@@ -36,6 +36,8 @@ function configureExpress(PORT, TOKEN_SECRET) {
   app.use(express.json({ limit: "2mb" }));
   app.use(express.urlencoded({ extended: true, limit: "2mb" }));
   app.use(logger.httpExpress);
+
+  // set socket
   app.use((req, _, next) => {
     req.io = io;
     next();

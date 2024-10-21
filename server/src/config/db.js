@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { env } from "./Env.js";
-import { logger } from "./Logger.js";
+import { env } from "./env.js";
+import { logger } from "./logger.js";
 import cache from "express-redis-cache";
 
 const connectDB = async () => {

@@ -1,5 +1,5 @@
 import { Logger } from "@rohit2005/logger";
-import { env } from "./Env.js";
+import { env } from "./env.js";
 
 // logger
 export const logger = new Logger({
