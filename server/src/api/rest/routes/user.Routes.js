@@ -14,7 +14,8 @@ router.get("/:username", userController.getUserByUsername);
 
 //! protected routes
 // profile
-router.get("/profile", AuthMiddleware, userController.profile);
+router.get("/profile", AuthMiddleware, userController.getProfile);
+
 router.patch("/profile", AuthMiddleware, userController.editProfile);
 router.delete("/profile", AuthMiddleware, userController.deleteAccount);
 

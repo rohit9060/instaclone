@@ -265,8 +265,10 @@ class UserService {
   signOut = async (body) => {};
 
   // profile
-  profile = async (id) => {
+  getProfile = async (id) => {
     const user = await User.findById(id);
+
+    console.log(user);
 
     if (!user) {
       return {

@@ -119,9 +119,11 @@ class UserController {
     });
   });
 
-  // get user
-  profile = AsyncErrorHandler(async (req, res, next) => {
-    const { statusCode, success, message, data } = await userService.profile(
+  // get Profile
+  getProfile = AsyncErrorHandler(async (req, res, next) => {
+    console.log("correct");
+
+    const { statusCode, success, message, data } = await userService.getProfile(
       req.user.id
     );
 
@@ -221,6 +223,7 @@ class UserController {
 
   // get user by username
   getUserByUsername = AsyncErrorHandler(async (req, res, next) => {
+    console.log("wrong");
     const username = req.params.username;
 
     const { statusCode, success, message, data } =
